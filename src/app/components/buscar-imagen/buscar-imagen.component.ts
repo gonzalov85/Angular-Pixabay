@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ImagenService } from 'src/app/services/imagen.service';
 
 @Component({
@@ -7,21 +8,22 @@ import { ImagenService } from 'src/app/services/imagen.service';
   styleUrls: ['./buscar-imagen.component.css']
 })
 export class BuscarImagenComponent implements OnInit {
+  nombreImagen: string;
 
-  nombreImagen:string;
-
-  constructor(private _imagenService:ImagenService) {
+  constructor(private _imagenService: ImagenService) {
     this.nombreImagen = '';
    }
 
   ngOnInit(): void {
   }
 
-  buscarImagenes(){
-    if(this.nombreImagen === ''){
+  buscarImagenes() {
+    
+    if(this.nombreImagen === '') {
       this._imagenService.setError('Agrega un texto de busqueda');
+      return;
     }
 
+    this._imagenService.enviarTerminoBusqueda(this.nombreImagen);
   }
-
 }

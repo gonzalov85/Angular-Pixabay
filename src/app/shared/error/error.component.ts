@@ -7,14 +7,13 @@ import { ImagenService } from 'src/app/services/imagen.service';
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.css']
 })
-export class ErrorComponent implements OnInit {
-
+export class ErrorComponent implements OnInit, OnDestroy {
   texto = '';
   mostrar = false;
-  suscripcion: Subscription;
+  suscription: Subscription;
 
-  constructor(private _imagenService:ImagenService) {
-    this.suscripcion = this._imagenService.getError().subscribe(data => {
+  constructor(private _imagenService: ImagenService) {
+    this.suscription = this._imagenService.getError().subscribe(data =>{
       this.mostrarMensaje();
       this.texto = data;
     })
@@ -24,15 +23,14 @@ export class ErrorComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.suscripcion.unsubscribe();
+    this.suscription.unsubscribe();
   }
 
-  mostrarMensaje(){
+  mostrarMensaje() {
     this.mostrar = true;
-    setTimeout(()=>{
+    setTimeout(() => {
       this.mostrar = false;
-    }, 2000)
-
+    }, 2000);  
   }
 
 }
